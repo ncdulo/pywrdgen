@@ -99,6 +99,7 @@ def gen(ctx, **kwargs):
 
     # Output score, and (list of) passwords.
     if len(passwords) > 0:
+        print(f'Generated {len(passwords)} passwords:')
         for password in passwords:
             print(password)
     # If no passwords generated

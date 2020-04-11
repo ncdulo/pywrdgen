@@ -2,6 +2,16 @@
 '''
 
 
+from random import sample
+
+from string import (
+    ascii_lowercase,
+    ascii_uppercase,
+    digits,
+    punctuation,
+)
+
+
 class Password():
     def __init__(self, **kwargs):
         '''Create a new password object. Assign Password attributes based on
@@ -15,6 +25,7 @@ provided **kwargs, or defaults if missing.
     length -- total length, in characters, of generated password'
         '''
         self._password = None
+        self.char_set = ''
         self.alpha = kwargs['alpha']
         self.upper = kwargs['upper']
         self.numerals = kwargs['numerals']
@@ -43,17 +54,25 @@ if one exists. Otherwise, generate a new one and return that.
         else:
             return self._password
 
+
+    def build_character_set(self):
+        '''Assemble the list of acceptable characters for password generation.
+        '''
+        if self.alpha:
+            self.char_set+= ascii_lowercase
+        if self.upper:
+            self.char_set += ascii_uppercase
+        if self.numerals:
+            self.char_set += digits
+        if self.special:
+            self.char_set += punctuation
+
+
     def generate(self):
         '''Generate the password using instance attributes.'''
-        output = ''
-        if self.alpha:
-            output += '[lower]'
-        if self.upper:
-            output += '[upper]'
-        if self.numerals:
-            output += '[numerals]'
-        if self.special:
-            output += '[special]'
-        if self.length:
-            output += f'[{self.length}]'
-        self._password = output
+        # TODO: This needs much improvement. As is, there is no assurance
+        # that we have at least one character from each selected character
+        # set included. This will lessen strength of passwords.
+        self.build_character_set()
+        password = ''.join(sample(list(self.char_set), self.length))
+        self._password = password
