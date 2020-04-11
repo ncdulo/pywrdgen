@@ -88,6 +88,9 @@ def gen(ctx, **kwargs):
     passwords = []
     for i in range(kwargs['count']):
         p = Password(**kwargs)
+        # TODO: We get a 'returned None instead of str' error when we take
+        # the generate call out. Might be indicating our getter is not
+        # properly being called, or working.
         p.generate()
         passwords.append(p)
 

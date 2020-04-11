@@ -15,6 +15,11 @@ provided **kwargs, or defaults if missing.
     length -- total length, in characters, of generated password'
         '''
         self._password = None
+        self.alpha = kwargs['alpha']
+        self.upper = kwargs['upper']
+        self.numerals = kwargs['numerals']
+        self.special = kwargs['special']
+        self.length = kwargs['length']
 
     def __str__(self):
         '''Return the generated password.'''
@@ -40,4 +45,15 @@ if one exists. Otherwise, generate a new one and return that.
 
     def generate(self):
         '''Generate the password using instance attributes.'''
-        return 'iMaDe_THIS_p455w0rd!'
+        output = ''
+        if self.alpha:
+            output += '[lower]'
+        if self.upper:
+            output += '[upper]'
+        if self.numerals:
+            output += '[numerals]'
+        if self.special:
+            output += '[special]'
+        if self.length:
+            output += f'[{self.length}]'
+        self._password = output
