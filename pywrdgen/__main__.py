@@ -91,7 +91,7 @@ def gen(ctx, **kwargs):
         # TODO: We get a 'returned None instead of str' error when we take
         # the generate call out. Might be indicating our getter is not
         # properly being called, or working.
-        p.generate()
+        #p.generate()
         passwords.append(p)
 
     # Do some things to determine strength of password.

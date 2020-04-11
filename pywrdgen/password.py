@@ -49,7 +49,7 @@ will not be exactly the same.
 if one exists. Otherwise, generate a new one and return that.
         '''
         if self._password is None:
-            self._password = self.generate()
+            self.generate()
             return self._password
         else:
             return self._password
