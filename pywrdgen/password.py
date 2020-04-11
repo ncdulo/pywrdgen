@@ -1,6 +1,7 @@
 '''Represents a password that can be generated based on it's attributes.
 '''
 
+
 class Password():
     def __init__(self, **kwargs):
         '''Create a new password object. Assign Password attributes based on
@@ -15,11 +16,9 @@ provided **kwargs, or defaults if missing.
         '''
         self._password = None
 
-
     def __str__(self):
         '''Return the generated password.'''
         return self.password
-
 
     def __repr__(self):
         '''Return a list of attributes that can be provided as **kwargs into
@@ -27,7 +26,6 @@ a new Password object. Seed is not currently supported, so new passwords
 will not be exactly the same.
         '''
         pass
-
 
     @property
     def password(self):
@@ -39,7 +37,6 @@ if one exists. Otherwise, generate a new one and return that.
             return self._password
         else:
             return self._password
-
 
     def generate(self):
         '''Generate the password using instance attributes.'''

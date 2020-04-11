@@ -7,29 +7,36 @@ CONTEXT_SETTINGS = {
     }
 
 
+#
+# Main entry-point. Handles global flags, and info blurb.
+#
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='0.0.1')
 @click.pass_context
 @click.option('-p', '--password-only',
-    default=False,
-    is_flag=True,
-    help='outut only generated passwords')
+              default=False,
+              is_flag=True,
+              help='outut only generated passwords')
 @click.option('-d', '--debug',
-    default=False,
-    is_flag=True,
-    help='include extra output text')
+              default=False,
+              is_flag=True,
+              help='include extra output text')
 def pwgen(ctx, **kwargs):
     '''Generate (possibly) secure passwords.'''
+
+    # Pull the **kwargs flags out and into our context object. This will
+    # be passed into sub-commands so they may access these global flags.
     ctx.obj = {
             'password_only': kwargs['password_only'],
             'debug': kwargs['debug'],
         }
 
+    # Return early and skip the info message if password_only flag is enabled.
     if ctx.obj['password_only']:
         return
 
-    print('pwgen!')
-    print('------')
+    print('pywrdgen')
+    print('--------')
     print('Generate (possibly) secure passwords. By default, there are no')
     print('flags enabled in `gen` mode. You must enable some of them for a')
     print('password to be generated. The combination of options selected')
@@ -40,33 +47,36 @@ def pwgen(ctx, **kwargs):
     print('based on your selected combination of options. Enjoy!')
     print()
 
-
+#
+# Password List Generation. Generates, and displays a list of passwords
+# generated based on the flags set on the command line.
+#
 @pwgen.command()
 @click.pass_context
 @click.option('-a', '--alpha',
-    default=False,
-    is_flag=True,
-    help='include lowercase alphabetic characters [a-z]')
+              default=False,
+              is_flag=True,
+              help='include lowercase alphabetic characters [a-z]')
 @click.option('-u', '--upper',
-    default=False,
-    is_flag=True,
-    help='include uppercase alphabetic characters [A-Z]')
+              default=False,
+              is_flag=True,
+              help='include uppercase alphabetic characters [A-Z]')
 @click.option('-n', '--numerals',
-    default=False,
-    is_flag=True,
-    help='include numerals [0-9]')
+              default=False,
+              is_flag=True,
+              help='include numerals [0-9]')
 @click.option('-s', '--special',
-    default=False,
-    is_flag=True,
-    help='include special characters [LIST THEM HERE -- DYNAMICALLY]')
+              default=False,
+              is_flag=True,
+              help='include special characters [LIST THEM HERE -- DYNAMICALLY]')
 @click.option('-l', '--length',
-    default=0,
-    type=int,
-    help='length of password to generate, in characters')
+              default=0,
+              type=int,
+              help='length of password to generate, in characters')
 @click.option('-c', '--count',
-    default=0,
-    type=int,
-    help='number of passwords to generate, in total')
+              default=0,
+              type=int,
+              help='number of passwords to generate, in total')
 def gen(ctx, **kwargs):
     '''Generate a (possibly) secure password based on the specified options.'''
     if ctx.obj['debug']:
@@ -77,11 +87,10 @@ def gen(ctx, **kwargs):
     # Create the new password object, providing it a **kwargs.
     passwords = []
     for i in range(kwargs['count']):
-        #passwords.append(f'generated password #{password}')
         p = Password(**kwargs)
         p.generate()
         passwords.append(p)
-    
+
     # Do some things to determine strength of password.
     # Based on options. Maybe also an algorithm to score it's randomness?
 
@@ -89,11 +98,13 @@ def gen(ctx, **kwargs):
     if len(passwords) > 0:
         for password in passwords:
             print(password)
+    # If no passwords generated
     else:
         # If we are *not* in password only mode, display an error message.
         if ctx.obj['password_only'] is False:
             print(
                 'No password was generated. Please check the help text above.')
+
 
 if __name__ == '__main__':
     pwgen()
