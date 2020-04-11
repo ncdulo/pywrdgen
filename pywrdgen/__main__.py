@@ -12,7 +12,7 @@ CONTEXT_SETTINGS = {
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='0.0.1')
 def pwgen():
-    '''Generate (possible) secure passwords.'''
+    '''Generate (possibly) secure passwords.'''
     print('pwgen!')
     print('------')
     print('Generate (possibly) secure passwords. By default, there are no')
