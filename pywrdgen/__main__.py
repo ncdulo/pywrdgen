@@ -2,8 +2,6 @@ import click
 
 from pywrdgen.password import Password
 
-DEBUG = True
-
 CONTEXT_SETTINGS = {
         'help_option_names': ['-h', '--help'],
     }
@@ -11,8 +9,25 @@ CONTEXT_SETTINGS = {
 
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='0.0.1')
-def pwgen():
+@click.pass_context
+@click.option('-p', '--password-only',
+    default=False,
+    is_flag=True,
+    help='outut only generated passwords')
+@click.option('-d', '--debug',
+    default=False,
+    is_flag=True,
+    help='include extra output text')
+def pwgen(ctx, **kwargs):
     '''Generate (possibly) secure passwords.'''
+    ctx.obj = {
+            'password_only': kwargs['password_only'],
+            'debug': kwargs['debug'],
+        }
+
+    if ctx.obj['password_only']:
+        return
+
     print('pwgen!')
     print('------')
     print('Generate (possibly) secure passwords. By default, there are no')
@@ -27,6 +42,7 @@ def pwgen():
 
 
 @pwgen.command()
+@click.pass_context
 @click.option('-a', '--alpha',
     default=False,
     is_flag=True,
@@ -51,10 +67,9 @@ def pwgen():
     default=0,
     type=int,
     help='number of passwords to generate, in total')
-def gen(**kwargs):
+def gen(ctx, **kwargs):
     '''Generate a (possibly) secure password based on the specified options.'''
-    print('generating!')
-    if DEBUG:
+    if ctx.obj['debug']:
         for key, value in kwargs.items():
             print(f'{key}: {value}')
         print()
@@ -75,7 +90,10 @@ def gen(**kwargs):
         for password in passwords:
             print(password)
     else:
-        print('No password was generated. Please check the help text above.')
+        # If we are *not* in password only mode, display an error message.
+        if ctx.obj['password_only'] is False:
+            print(
+                'No password was generated. Please check the help text above.')
 
 if __name__ == '__main__':
     pwgen()
