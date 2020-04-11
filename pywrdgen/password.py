@@ -13,7 +13,7 @@ provided **kwargs, or defaults if missing.
     special -- include special characters ...'
     length -- total length, in characters, of generated password'
         '''
-        self.password = None
+        self._password = None
 
 
     def __str__(self):
@@ -23,24 +23,24 @@ provided **kwargs, or defaults if missing.
 
     def __repr__(self):
         '''Return a list of attributes that can be provided as **kwargs into
-    a new Password object. Seed is not currently supported, so new passwords
-    will not be exactly the same.
+a new Password object. Seed is not currently supported, so new passwords
+will not be exactly the same.
         '''
         pass
 
 
-    def generate(self):
-        '''Generate the password using instance attributes.'''
-        return 'iMaDe_THIS_p455w0rd!'
-
-
-    def get(self):
-        '''Return the already generated password, or generate one if possible
-        using the current set of attributes. This is the recommended way to
-        access the generated password.
+    @property
+    def password(self):
+        '''Getter method for password. Return the already generated password,
+if one exists. Otherwise, generate a new one and return that.
         '''
         if self._password is None:
             self._password = self.generate()
             return self._password
         else:
             return self._password
+
+
+    def generate(self):
+        '''Generate the password using instance attributes.'''
+        return 'iMaDe_THIS_p455w0rd!'
