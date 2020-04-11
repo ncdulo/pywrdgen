@@ -18,7 +18,7 @@ provided **kwargs, or defaults if missing.
 
     def __str__(self):
         '''Return the generated password.'''
-        return self._password
+        return self.password
 
 
     def __repr__(self):

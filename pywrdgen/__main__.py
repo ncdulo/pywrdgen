@@ -1,6 +1,6 @@
 import click
 
-import pywrdgen.password
+from pywrdgen.password import Password
 
 DEBUG = True
 
@@ -61,8 +61,11 @@ def gen(**kwargs):
 
     # Create the new password object, providing it a **kwargs.
     passwords = []
-    for password in range(kwargs['count']):
-        passwords.append(f'generated password #{password}')
+    for i in range(kwargs['count']):
+        #passwords.append(f'generated password #{password}')
+        p = Password(**kwargs)
+        p.generate()
+        passwords.append(p)
     
     # Do some things to determine strength of password.
     # Based on options. Maybe also an algorithm to score it's randomness?
