@@ -1,5 +1,7 @@
 import click
 
+import pywrdgen.password
+
 DEBUG = True
 
 CONTEXT_SETTINGS = {
