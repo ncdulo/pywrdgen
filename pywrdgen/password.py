@@ -56,6 +56,13 @@ if one exists. Otherwise, generate a new one and return that.
         else:
             return self._password
 
+    @property
+    def strength(self):
+        '''Getter method for password strength. If the password has not already
+been generated, this will trigger that to happen.
+        '''
+        pass
+
     def build_character_set(self):
         '''Assemble the list of acceptable characters for password generation.
         '''
