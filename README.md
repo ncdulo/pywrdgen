@@ -19,6 +19,11 @@ python -m pywrdgen --help          # Display global flags help
 python -m pywrdgen gen --help      # Display generator flags help
 ```
 
+# ideas
+- Pronouncable passwords
+- Password strength checking
+- Batch check password strength from file
+
 # contributing
 Any, and all contributions are welcome. Be it issues, suggestions, thanks. I
 appreciate all of it. Feel free to submit a pull request, or write an issue 
