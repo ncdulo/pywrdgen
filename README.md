@@ -1,4 +1,6 @@
 # pywrdgen
+[![PyPI version shields.io](https://img.shields.io/pypi/v/pywrdgen.svg)](https://pypi.python.org/pypi/pywrdgen/) [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pywrdgen.svg)](https://pypi.python.org/pypi/pywrdgen/) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/) [![made-with-vim](https://img.shields.io/badge/Made%20with-Vim-1f425f.svg)](https://www.vim.org/) [![Awesome Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)
+
 Generate (possibly) secure passwords.
 
 Just a little project to toy around with. I don't intend this to be anything
