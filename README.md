@@ -28,3 +28,11 @@ python -m pywrdgen gen --help      # Display generator flags help
 Any, and all contributions are welcome. Be it issues, suggestions, thanks. I
 appreciate all of it. Feel free to submit a pull request, or write an issue 
 with what's on your mind.
+
+# thanks
+Thanks to the Electronic Frontier Foundation for providing the wordlists used
+during passphrase gneration. Released under the Creative Commons Attribution
+3.0 license. Full terms linked below. Thank you!
+- [Electronic Frontier Foundation](https://www.eff.org/copyright)
+- [EFF Wordlists](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)
+- [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/)
