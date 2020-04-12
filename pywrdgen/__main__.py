@@ -1,4 +1,5 @@
 import click
+from sys import argv
 
 from pywrdgen.password import Password
 
@@ -110,6 +111,8 @@ def gen(ctx, **kwargs):
         if ctx.obj['password_only'] is False:
             print(
                 'No password was generated. Please check the help text above.')
+            print('The full list of generator flags is available with')
+            print(f'{argv[0]} gen --help')
 
 
 if __name__ == '__main__':
