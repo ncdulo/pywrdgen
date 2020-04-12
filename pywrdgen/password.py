@@ -2,7 +2,7 @@
 '''
 
 
-from random import sample
+from random import choice
 
 from string import (
     ascii_lowercase,
@@ -79,5 +79,9 @@ if one exists. Otherwise, generate a new one and return that.
         # that we have at least one character from each selected character
         # set included. This will lessen strength of passwords.
         self.build_character_set()
-        password = ''.join(sample(list(self.char_set), self.length))
+        password = ''
+        chars_remaining = self.length
+        while chars_remaining > 0:
+            password += choice(self.char_set)
+            chars_remaining -= 1
         self._password = password
