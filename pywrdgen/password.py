@@ -52,7 +52,10 @@ will not be exactly the same.
 if one exists. Otherwise, generate a new one and return that.
         '''
         if self._password is None:
-            self.generate()
+            if self.want_passphrase:
+                self.generate_passphrase()
+            else:
+                self.generate()
             return self._password
         else:
             return self._password
@@ -84,6 +87,7 @@ if one exists. Otherwise, generate a new one and return that.
         # TODO: This needs much improvement. As is, there is no assurance
         # that we have at least one character from each selected character
         # set included. This will lessen strength of passwords.
+
         self.build_character_set()
         password = ''
         chars_remaining = self.length
@@ -91,3 +95,15 @@ if one exists. Otherwise, generate a new one and return that.
             password += choice(self.char_set)
             chars_remaining -= 1
         self._password = password
+
+    def generate_passphrase(self):
+        '''Generate a passphrase using instance attributes.'''
+        # Determine the relevant attributes here
+
+        # Load word list into memory (separate function?)
+
+        # Roll dice and grab words from list per roll (list comprehension?)
+
+        # Transform, or add extra characters based on instance attributes
+
+        self._password = 'this$is42my+pAsSPHRa3e'
