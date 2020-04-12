@@ -72,7 +72,7 @@ def pwgen(ctx, **kwargs):
 @click.option('-x', '--hexadecimal',
               default=False,
               is_flag=True,
-              help='generate password in hexadecimal only [A-Z0-9]')
+              help='generate password in hexadecimal only [A-F0-9]')
 @click.option('-l', '--length',
               default=0,
               type=int,
