@@ -61,9 +61,18 @@ if one exists. Otherwise, generate a new one and return that.
         '''Getter method for password strength. If the password has not already
 been generated, this will trigger that to happen.
         '''
+        return self.calculate_strength()
+
+    def calculate_strength(self):
         # Criteria for strength checking is described in
         # doc/password_strength.md
         strength = 0
+
+        # I think the best solution here is to assemble a series of rules
+        # and then iterate over the password, checking against them.
+        # This might mean a dictionary, or possibly multiple sets of rules.
+        # But it will be better than the 16 `if` statements.
+
         return strength
 
     def build_character_set(self):
