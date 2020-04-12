@@ -27,12 +27,13 @@ provided **kwargs, or defaults if missing.
         '''
         self._password = None
         self.char_set = ''
-        self.alpha = kwargs['alpha']
-        self.upper = kwargs['upper']
-        self.numerals = kwargs['numerals']
-        self.special = kwargs['special']
-        self.hexadecimal = kwargs['hexadecimal']
-        self.length = kwargs['length']
+        self.alpha = kwargs.get('alpha')
+        self.upper = kwargs.get('upper')
+        self.numerals = kwargs.get('numerals')
+        self.special = kwargs.get('special')
+        self.hexadecimal = kwargs.get('hexadecimal')
+        self.want_passphrase = kwargs.get('passphrase')
+        self.length = kwargs.get('length')
 
     def __str__(self):
         '''Return the generated password.'''
