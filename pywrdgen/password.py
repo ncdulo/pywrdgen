@@ -2,7 +2,7 @@
 '''
 
 
-from random import choice
+from secrets import choice
 
 from string import (
     ascii_lowercase,
