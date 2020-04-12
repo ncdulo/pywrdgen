@@ -61,7 +61,10 @@ if one exists. Otherwise, generate a new one and return that.
         '''Getter method for password strength. If the password has not already
 been generated, this will trigger that to happen.
         '''
-        pass
+        # Criteria for strength checking is described in
+        # doc/password_strength.md
+        strength = 0
+        return strength
 
     def build_character_set(self):
         '''Assemble the list of acceptable characters for password generation.
