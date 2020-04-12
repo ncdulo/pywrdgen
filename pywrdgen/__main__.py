@@ -69,6 +69,10 @@ def pwgen(ctx, **kwargs):
               default=False,
               is_flag=True,
               help='include special characters [LIST THEM HERE -- DYNAMICALLY]')
+@click.option('-x', '--hexadecimal',
+              default=False,
+              is_flag=True,
+              help='generate password in hexadecimal only [A-Z0-9]')
 @click.option('-l', '--length',
               default=0,
               type=int,
@@ -88,9 +92,6 @@ def gen(ctx, **kwargs):
     passwords = []
     for i in range(kwargs['count']):
         p = Password(**kwargs)
-        # TODO: We get a 'returned None instead of str' error when we take
-        # the generate call out. Might be indicating our getter is not
-        # properly being called, or working.
         #p.generate()
         passwords.append(p)
 

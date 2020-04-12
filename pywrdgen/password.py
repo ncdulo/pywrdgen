@@ -9,6 +9,7 @@ from string import (
     ascii_uppercase,
     digits,
     punctuation,
+    hexdigits,
 )
 
 
@@ -30,6 +31,7 @@ provided **kwargs, or defaults if missing.
         self.upper = kwargs['upper']
         self.numerals = kwargs['numerals']
         self.special = kwargs['special']
+        self.hexadecimal = kwargs['hexadecimal']
         self.length = kwargs['length']
 
     def __str__(self):
@@ -54,19 +56,22 @@ if one exists. Otherwise, generate a new one and return that.
         else:
             return self._password
 
-
     def build_character_set(self):
         '''Assemble the list of acceptable characters for password generation.
         '''
+        if self.hexadecimal:
+            # If hexadecimal output enabled, return early.
+            # Use *only* hex in character set.
+            self.char_set += hexdigits
+            return
         if self.alpha:
-            self.char_set+= ascii_lowercase
+            self.char_set += ascii_lowercase
         if self.upper:
             self.char_set += ascii_uppercase
         if self.numerals:
             self.char_set += digits
         if self.special:
             self.char_set += punctuation
-
 
     def generate(self):
         '''Generate the password using instance attributes.'''
