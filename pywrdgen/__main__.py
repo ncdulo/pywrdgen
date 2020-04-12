@@ -93,7 +93,7 @@ def gen(ctx, **kwargs):
     passwords = []
     for i in range(kwargs['count']):
         p = Password(**kwargs)
-        #p.generate()
+        # p.generate()
         passwords.append(p)
 
     # Do some things to determine strength of password.
