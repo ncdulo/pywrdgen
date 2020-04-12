@@ -63,7 +63,11 @@ if one exists. Otherwise, generate a new one and return that.
             # If hexadecimal output enabled, return early.
             # Use *only* hex in character set.
             # Do some manipulations here to remove lowercase `a-f`
-            self.char_set += ''.join(list(set(hexdigits.upper())))
+            if self.upper:
+                hexcase = hexdigits.upper()
+            else:
+                hexcase = hexdigits.lower()
+            self.char_set += ''.join(list(set(hexcase)))
             return
         if self.alpha:
             self.char_set += ascii_lowercase
