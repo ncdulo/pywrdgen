@@ -17,12 +17,11 @@ setup(name='pywrdgen',
       keywords='password pwgen generate generator cli utility tool',
       description='Generate (possibly) secure passwords.',
       long_description=long_description,
-      long_description_conten_type='text/markdown',
+      long_description_content_type='text/markdown',
       python_requires='>=3.6',
       install_requires=[
               'click',
           ],
-      py_modules=['cli'],
       entry_points={
               'console_scripts': [
                   'pywrdgen = pywrdgen.__main__:main'
