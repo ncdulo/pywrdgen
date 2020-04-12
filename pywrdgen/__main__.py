@@ -22,7 +22,7 @@ CONTEXT_SETTINGS = {
               default=False,
               is_flag=True,
               help='include extra output text')
-def pwgen(ctx, **kwargs):
+def main(ctx, **kwargs):
     '''Generate (possibly) secure passwords.'''
 
     # Pull the **kwargs flags out and into our context object. This will
@@ -52,7 +52,7 @@ def pwgen(ctx, **kwargs):
 # Password List Generation. Generates, and displays a list of passwords
 # generated based on the flags set on the command line.
 #
-@pwgen.command()
+@main.command()
 @click.pass_context
 @click.option('-a', '--alpha',
               default=False,
@@ -116,4 +116,4 @@ def gen(ctx, **kwargs):
 
 
 if __name__ == '__main__':
-    pwgen()
+    main()
