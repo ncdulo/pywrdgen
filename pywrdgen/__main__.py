@@ -85,6 +85,9 @@ def main(ctx, **kwargs):
 def gen(ctx, **kwargs):
     '''Generate a (possibly) secure password based on the specified options.'''
     if ctx.obj['debug']:
+        # If debug mode enabled, include debug flag into **kwargs
+        # So that `Password` is aware of the situation
+        kwargs['debug'] = True
         for key, value in kwargs.items():
             print(f'{key}: {value}')
         print()

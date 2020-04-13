@@ -2,8 +2,8 @@
 '''
 
 
-from secrets import choice
-
+from pathlib import Path
+from secrets import choice, randbelow
 from string import (
     ascii_lowercase,
     ascii_uppercase,
@@ -25,6 +25,10 @@ provided **kwargs, or defaults if missing.
     special -- include special characters ...'
     length -- total length, in characters, of generated password'
         '''
+        self.debug = kwargs.get('debug')
+        base_dir = Path(__file__).parent.resolve()
+        self.word_file = Path(base_dir, 'data/eff_large_wordlist.txt')
+        self.word_list= []
         self._password = None
         self.char_set = ''
         self.alpha = kwargs.get('alpha')
@@ -52,6 +56,14 @@ will not be exactly the same.
 if one exists. Otherwise, generate a new one and return that.
         '''
         if self._password is None:
+            #
+            # REMOVE THIS -- Forced passphrase when `--debug` enabled
+            #
+            if self.debug:
+                self.want_passphrase = True
+            #
+            # REMOVE THIS -- Forced passphrase when `--debug` enabled
+            #
             if self.want_passphrase:
                 self.generate_passphrase()
             else:
@@ -98,12 +110,38 @@ if one exists. Otherwise, generate a new one and return that.
 
     def generate_passphrase(self):
         '''Generate a passphrase using instance attributes.'''
-        # Determine the relevant attributes here
+        self._password = ''
 
         # Load word list into memory (separate function?)
+        self._load_word_list(self.word_file)
 
-        # Roll dice and grab words from list per roll (list comprehension?)
+        # Using `--length` as the number of words, start creating them
+        words_remaining = self.length
+        while words_remaining > 0:
+            word_index = ''
+            # Yield over dice rolls to generate a numerical index, as
+            # a string.
+            for roll in self._roll_dice(5, 6):
+                word_index += str(roll)
+            # Find the line in our word list that contains the index
+            line = [s for s in self._word_list if word_index in s]
+            # Separate the cooresponding word from the line
+            word = line[0].split('\t')[1].split('\n')[0]
+            # Append the word, decrement counter
+            self._password += word
+            words_remaining -= 1
 
         # Transform, or add extra characters based on instance attributes
 
-        self._password = 'this$is42my+pAsSPHRa3e'
+    def _load_word_list(self, word_file):
+        '''Read the specified file into memory. One line in the file into
+one line of text in `self._word_list`.'''
+        with open(word_file, 'r') as fh:
+            word_list = fh.readlines()
+        self._word_list = word_list
+
+    def _roll_dice(self, dice, value):
+        '''Generate [dice]d[value] rolls and yield the results of each roll.
+        '''
+        for i in range(dice):
+            yield randbelow(value-1)+1
