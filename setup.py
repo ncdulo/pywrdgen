@@ -10,6 +10,12 @@ with open(path.join(cwd, 'README.md'), 'r') as fh:
 
 setup(name='pywrdgen',
       packages=find_packages(),
+      package_dir={'pywrdgen': 'pywrdgen'},
+      package_data={
+          'pywrdgen': [
+                  'data/eff_large_wordlist.txt',
+              ]
+          },
       version='0.1.0',
       author='ncdulo',
       license='MIT',
